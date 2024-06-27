@@ -5,12 +5,13 @@ import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 @Component
 public class ReportUtil {
@@ -19,15 +20,39 @@ public class ReportUtil {
 	private static final String PARAMETRO_PASTA_REPORT = "PARAMETRO_PASTA_REPORT";
 	private static final String SEPARETOR = File.separator;
 	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
-	public String gerarRelatorio(HashMap parametroRelatorio, ServletContext servletContext) {
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public String gerarRelatorioStringPath(HashMap parametroRelatorio, ServletContext servletContext, String nomeReport) throws Exception {
 		
 		String caminhoPastaImagensReport = servletContext.getRealPath(FOLDER_RELATORIOS);
 		parametroRelatorio.put(PARAMETRO_PASTA_REPORT, caminhoPastaImagensReport + SEPARETOR);
 		
+		JasperPrint impressoraJasper = JasperFillManager
+				.fillReport(caminhoPastaImagensReport + SEPARETOR + nomeReport + ".jasper",
+				parametroRelatorio, jdbcTemplate.getDataSource().getConnection());
 		
+		String caminhoArquivoRelatorio = servletContext.getRealPath("") + SEPARETOR + "relatorio.pdf";
 		
-		return "";
+		JasperExportManager.exportReportToPdfFile(impressoraJasper, caminhoArquivoRelatorio);
+		
+		return caminhoArquivoRelatorio;
+	}
+	
+	
+	@SuppressWarnings({"unchecked","rawtypes"})
+	public byte[] gerarRelatorioByte(HashMap parametroRelatorio, ServletContext servletContext, String nomeReport) throws Exception {
+		
+		String caminhoPastaImagensReport = servletContext.getRealPath(FOLDER_RELATORIOS);
+		parametroRelatorio.put(PARAMETRO_PASTA_REPORT, caminhoPastaImagensReport + SEPARETOR);
+		
+		JasperPrint impressoraJasper = JasperFillManager
+				.fillReport(caminhoPastaImagensReport + SEPARETOR + nomeReport + ".jasper",
+				parametroRelatorio, jdbcTemplate.getDataSource().getConnection());
+		
+		return JasperExportManager.exportReportToPdf(impressoraJasper);
+		
 	}
 	
 
