@@ -33,5 +33,85 @@ public class TesteReportImpressao {
 		System.out.println(local);
 		
 	}
+	
+	@Test
+	public void testeImpressaoRelUsuario2() throws Exception {
+		
+		HashMap params = new HashMap();
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		
+		params.put("SALARIO_INI", 20.00);
+		params.put("SALARIO_FIM" , 200.00);
+		String local = reportUtil.gerarRelatorioStringPath(params, request.getServletContext(), "relatorio-usuario-agrupamento");
+		
+		System.out.println(local);
+		
+	}
+	
+	
+	@Test
+	public void testeImpressaoRelUsuarioSubreport3() throws Exception {
+		
+		HashMap params = new HashMap();
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		
+		params.put("SALARIO_INI", 20.00);
+		params.put("SALARIO_FIM" , 30.00);
+		String local = reportUtil.gerarRelatorioStringPath(params, request.getServletContext(), "relatorio-usuario-com-subreport");
+		
+		System.out.println(local);
+		
+	}
+	
+	
+	@Test
+	public void testeImpressaoRelUsuarioGraficoPizza() throws Exception {
+		
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio-usuario-grafico-pizza");
+		
+		System.out.println(local);
+		
+	}
+	
+	
+	@Test
+	public void testeImpressaoRelUsuarioGraficoBarra() throws Exception {
+		
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio_usuario-barra-chart");
+		
+		System.out.println(local);
+		
+	}
+	
+	
+	@Test
+	public void testeImpressaoRelUsuarioTabela() throws Exception {
+		
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio_usuario_tabela");
+		
+		System.out.println(local);
+		
+	}
+	
+	@Test
+	public void testeImpressaoRelUsuarioCrossTabela() throws Exception {
+		
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio_usuario_crosstable");
+		
+		System.out.println(local);
+		
+	}
 
 }
