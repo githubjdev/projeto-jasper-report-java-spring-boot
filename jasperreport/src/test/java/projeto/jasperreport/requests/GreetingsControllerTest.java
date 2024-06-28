@@ -1,8 +1,5 @@
 package projeto.jasperreport.requests;
 
-import com.hackerrank.test.utility.Order;
-import com.hackerrank.test.utility.OrderedTestRunner;
-import com.hackerrank.test.utility.TestWatchman;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -19,6 +16,10 @@ import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import com.hackerrank.test.utility.Order;
+import com.hackerrank.test.utility.OrderedTestRunner;
+import com.hackerrank.test.utility.TestWatchman;
 
 @RunWith(OrderedTestRunner.class)
 @SpringBootTest
