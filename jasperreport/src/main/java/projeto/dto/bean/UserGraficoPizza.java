@@ -6,15 +6,15 @@ import java.util.Objects;
 public class UserGraficoPizza implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer qtde;
 	private Integer idade;
 	private String estado;
-	
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
+
 	public String getEstado() {
 		return estado;
 	}
@@ -50,6 +50,11 @@ public class UserGraficoPizza implements Serializable {
 			return false;
 		UserGraficoPizza other = (UserGraficoPizza) obj;
 		return Objects.equals(idade, other.idade) && Objects.equals(qtde, other.qtde);
+	}
+
+	@Override
+	public String toString() {
+		return "UserGraficoPizza [qtde=" + qtde + ", idade=" + idade + ", estado=" + estado + "]";
 	}
 
 }

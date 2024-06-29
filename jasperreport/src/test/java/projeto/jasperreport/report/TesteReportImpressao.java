@@ -1,6 +1,7 @@
 package projeto.jasperreport.report;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import projeto.dto.bean.UserGraficoPizza;
 import projeto.jasperreport.Application;
 import projeto.jasperreport.ReportUtil;
+import projeto.model.Usuario;
+import projeto.repository.UsuarioRepository;
+import projeto.service.UsuarioService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.MOCK)
@@ -19,6 +24,12 @@ public class TesteReportImpressao {
 	
 	@Autowired
 	private ReportUtil reportUtil;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Test
 	public void testeImpressaoRelUsuario1() throws Exception {
@@ -112,6 +123,34 @@ public class TesteReportImpressao {
 		
 		System.out.println(local);
 		
+	}
+	
+	@Test
+	public void testeListbySalario() {
+		List<Usuario> usuarios = usuarioRepository.listbySalario(1D, 500D);
+		
+		for (Usuario usuario : usuarios) {
+			System.out.println(usuario);
+		}
+	}
+	
+	@Test
+	public void testeListUserGraficoPizzaAndBar() {
+		 List<UserGraficoPizza> graficoPizzas = usuarioService.listUserGraficoPizzaAndBar();
+		 
+		 for (UserGraficoPizza userGraficoPizza : graficoPizzas) {
+			System.out.println(userGraficoPizza);
+		}
+	}
+	
+	
+	@Test
+	public void testeListUserCrossBar() {
+		 List<UserGraficoPizza> graficoPizzas = usuarioService.listUserCrossBar();
+		 
+		 for (UserGraficoPizza userGraficoPizza : graficoPizzas) {
+			System.out.println(userGraficoPizza);
+		}
 	}
 
 }

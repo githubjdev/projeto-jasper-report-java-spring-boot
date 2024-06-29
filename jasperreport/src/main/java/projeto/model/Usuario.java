@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
 	@Column(name = "estado")
 	private String estado;
 
-	@OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	List<Telefone> telefones = new ArrayList<Telefone>();
 
 	public Long getId() {
@@ -107,6 +107,12 @@ public class Usuario implements Serializable {
 			return false;
 		Usuario other = (Usuario) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", login=" + login + ", nome=" + nome + ", salario=" + salario + ", idade=" + idade
+				+ ", estado=" + estado + ", telefones=" + telefones + "]";
 	}
 
 }
