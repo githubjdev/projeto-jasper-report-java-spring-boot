@@ -45,6 +45,24 @@ public class TesteReportImpressao {
 		
 	}
 	
+	
+	@Test
+	public void testeImpressaoRelUsuario1Jrbcds() throws Exception {
+		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		
+		List<Usuario> usuarios = usuarioRepository.listbySalario(1.00, 500.00);
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				request.getServletContext(), 
+				"relatorio-usuario-jrbcds", usuarios);
+		
+		System.out.println(local);
+		
+	}
+	
+
+	
 	@Test
 	public void testeImpressaoRelUsuario2() throws Exception {
 		
@@ -54,6 +72,20 @@ public class TesteReportImpressao {
 		params.put("SALARIO_INI", 20.00);
 		params.put("SALARIO_FIM" , 200.00);
 		String local = reportUtil.gerarRelatorioStringPath(params, request.getServletContext(), "relatorio-usuario-agrupamento");
+		
+		System.out.println(local);
+		
+	}
+	
+	@Test
+	public void testeImpressaoRelUsuario2jrbcds() throws Exception {
+		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		
+		List<Usuario> usuarios = usuarioRepository.listbySalario(1.00, 500.00);
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),request.getServletContext(), 
+				       "relatorio-usuario-agrupamento-jrbcds", usuarios);
 		
 		System.out.println(local);
 		
@@ -122,6 +154,21 @@ public class TesteReportImpressao {
 				"relatorio_usuario_crosstable");
 		
 		System.out.println(local);
+		
+	}
+	
+	
+	@Test
+	public void testeListbyUser() throws Exception {
+		
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio-usuario-jrbcds-teste-1", usuarios);
+		
+		System.out.println(local);
+		
 		
 	}
 	
