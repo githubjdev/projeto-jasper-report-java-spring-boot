@@ -220,6 +220,19 @@ public class TesteReportImpressao {
 	
 	
 	@Test
+	public void testeImpressaoRelUsuarioCrossTabelajrbcds() throws Exception {
+		
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio_usuario_crosstable-jrbcds", usuarioService.listUserCrossBar());
+		
+		System.out.println(local);
+		
+	}
+	
+	
+	@Test
 	public void testeListbyUser() throws Exception {
 		
 		List<Usuario> usuarios = usuarioRepository.findAll();
