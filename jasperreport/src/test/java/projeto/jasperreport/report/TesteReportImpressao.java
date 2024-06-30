@@ -108,6 +108,21 @@ public class TesteReportImpressao {
 	
 	
 	@Test
+	public void testeImpressaoRelUsuarioSubreport3Jrbdcs() throws Exception {
+		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+	
+		List<Usuario> usuarios = usuarioRepository.listbySalario(1.00, 500.00);
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				   request.getServletContext(), "relatorio-usuario-com-subreport-jrbcds", usuarios);
+		
+		System.out.println(local);
+		
+	}
+	
+	
+	@Test
 	public void testeImpressaoRelUsuarioGraficoPizza() throws Exception {
 		
 		
