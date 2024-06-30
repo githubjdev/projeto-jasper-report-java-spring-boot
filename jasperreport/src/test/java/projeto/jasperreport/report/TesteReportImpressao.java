@@ -1,5 +1,6 @@
 package projeto.jasperreport.report;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -134,6 +135,18 @@ public class TesteReportImpressao {
 		
 	}
 	
+	@Test
+	public void testeImpressaoRelUsuarioGraficoPizzaJrbcds() throws Exception {
+		
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio-usuario-grafico-pizza-jrbcds", usuarioService.listUserGraficoPizzaAndBar());
+		
+		System.out.println(local);
+		
+	}
+	
 	
 	@Test
 	public void testeImpressaoRelUsuarioGraficoBarra() throws Exception {
@@ -142,6 +155,19 @@ public class TesteReportImpressao {
 		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
 				new MockHttpServletRequest().getServletContext(),
 				"relatorio_usuario-barra-chart");
+		
+		System.out.println(local);
+		
+	}
+	
+	
+	@Test
+	public void testeImpressaoRelUsuarioGraficoBarraJrbcds() throws Exception {
+		
+		
+		String local = reportUtil.gerarRelatorioStringPath(new HashMap(),
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio_usuario-barra-chart-jrbcds", usuarioService.listUserGraficoPizzaAndBar());
 		
 		System.out.println(local);
 		
@@ -159,6 +185,26 @@ public class TesteReportImpressao {
 		System.out.println(local);
 		
 	}
+	
+	
+	
+	@Test
+	public void testeImpressaoRelUsuarioTabelajrbcds() throws Exception {
+		
+		
+		HashMap params = new HashMap();
+		params.put("lista_data_set_user", usuarioService.listUserGraficoPizzaAndBar());
+		
+		String local = reportUtil.gerarRelatorioStringPath(params,
+				new MockHttpServletRequest().getServletContext(),
+				"relatorio_usuario_tabela-jrbcds", usuarioRepository.findAll());
+		
+		System.out.println(local);
+		
+	}
+	
+	
+
 	
 	@Test
 	public void testeImpressaoRelUsuarioCrossTabela() throws Exception {
