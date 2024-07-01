@@ -112,7 +112,6 @@
 			<version>1.5-beta1</version>
 		</dependency>
 
-
 	</dependencies>
 
 	<build>
