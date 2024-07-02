@@ -78,7 +78,7 @@ public class ImpressaoReportController {
 
 		byte[] reportByte = reportUtil.gerarRelatorioByte(params, context, nome, listDados);
 
-		String base64 = "data:application/text;base64," + DatatypeConverter.printBase64Binary(reportByte);
+		String base64 = "data:application/pdf;base64," + DatatypeConverter.printBase64Binary(reportByte);
 
 		return new ResponseEntity<String>(base64, HttpStatus.OK);
 
@@ -116,6 +116,13 @@ public class ImpressaoReportController {
 	public String imprimeReportMvc(){
 		
 		return "imprime-report-mvc.html";
+	}
+	
+	
+	@RequestMapping(value = "/imprime-report-rest-api", method =  RequestMethod.GET)
+	public String imprimeReportRetApi(){
+		
+		return "imprime-report-rest-api.html";
 	}
 	
 	@RequestMapping(value = "/imprimirReportMvc", method = RequestMethod.POST)
