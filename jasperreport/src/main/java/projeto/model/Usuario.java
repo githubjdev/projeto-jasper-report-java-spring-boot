@@ -32,10 +32,21 @@ public class Usuario implements Serializable {
 
 	@Column(name = "estado")
 	private String estado;
+	
 
 	@OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	List<Telefone> telefones = new ArrayList<Telefone>();
-
+	
+	private byte[] foto;
+	
+    public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+    
+    public byte[] getFoto() {
+		return foto;
+	}
+    
 	public Long getId() {
 		return id;
 	}

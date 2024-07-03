@@ -1,6 +1,7 @@
 package projeto.jasperreport.report;
 
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -273,5 +274,23 @@ public class TesteReportImpressao {
 			System.out.println(userGraficoPizza);
 		}
 	}
+	
+	@Test
+	public void testeInsereImagem()  throws Exception {
+		
+		byte[] imagemByte = Files.readAllBytes(Paths.get("C:/Users/alex_/git/projeto-jasper-report-java-spring-boot/jasperreport/src/test/java/imagem/imagem1user.PNG"));
+		
+		Usuario usuario = usuarioRepository.findById(5L).get();
+		usuario.setFoto(imagemByte);
+		usuarioRepository.saveAndFlush(usuario);
+		
+		imagemByte = Files.readAllBytes(Paths.get("C:/Users/alex_/git/projeto-jasper-report-java-spring-boot/jasperreport/src/test/java/imagem/image2.PNG"));
+		
+		usuario = usuarioRepository.findById(6L).get();
+		usuario.setFoto(imagemByte);
+		usuarioRepository.saveAndFlush(usuario);
+	}
+	
+	
 
 }
