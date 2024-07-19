@@ -131,6 +131,10 @@ public class ImpressaoReportController {
 									@RequestParam("salario_fim") Double salario_fim,
 									HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		if (salario_ini == null || salario_fim == null) {
+			return "redirect:/" + imprimeReportMvc();	
+		}
+		
 		this.imprimirReport(nome, salario_ini, salario_fim, request, response);
 		
 		return "redirect:/" + imprimeReportMvc();

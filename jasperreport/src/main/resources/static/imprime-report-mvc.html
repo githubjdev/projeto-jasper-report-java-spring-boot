@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <h1 style="text-align: center;">Relatório MVC</h1>
+  <h1 style="text-align: center;" class="h1">Relatório MVC</h1>
   
-  <form action="/imprimirReportMvc" method="POST" style="width: 100%; padding-top: 10%;padding-left: 40%">
-    <label for="nome">Nome do relatório</label><br>
-    <select id="nome" name="nome">
+  <form action="/imprimirReportMvc" method="POST" style="width: 100%; padding-top: 10%;padding-left: 40%" onsubmit="return validarForm()">
+    <label for="nome"  class="form-label">Nome do relatório</label><br>
+    <select id="nome" name="nome" style="width: 300px" class="form-select">
      <option value="relatorio-usuario-jrbcds">Relatório de usuário</option>
      <option value="relatorio-usuario-agrupamento-jrbcds">Relatório de usuário agrupamento</option>
      <option value="relatorio-usuario-com-subreport-jrbcds">Relatório de usuário sub-report</option>
@@ -21,16 +25,45 @@
     </select>
     <br>
     <br>
-    <label for="salario_ini">Salário Inicial</label><br>
-    <input type="text" id="salario_ini" name="salario_ini">
+    <label for="salario_ini"  class="form-label">Salário Inicial</label><br>
+    <input type="number" onkeypress="permiteNumeros()" id="salario_ini" name="salario_ini" class="form-control" style="width: 300px" required="required">
     <br>
     <br>
-    <label for="salario_fim">Salário Final</label><br>
-    <input type="text" id="salario_fim" name="salario_fim">
+    <label for="salario_fim"  class="form-label">Salário Final</label><br>
+    <input type="number" onkeypress="permiteNumeros()" id="salario_fim" name="salario_fim" class="form-control" style="width: 300px" required="required">
     <br>
     <br>
-    <input type="submit" value="Imprimir relatório">
+    <input type="submit"  value="Imprimir relatório" style="width: 300px" class="btn btn-primary">
   </form>
 
+<script type="text/javascript">
+
+ function validarForm(){
+	 var ini = document.getElementById('salario_ini').value;
+	 var fim = document.getElementById('salario_fim').value;
+	 
+	 if (ini !== null && fim !== null){
+	 	 return true;
+	 }
+	 return false;
+	 
+ }
+ 
+
+ function permiteNumeros(evt){
+ 	var theEvent = evt || window.event;
+ 	   var key = theEvent.keyCode || theEvent.which;
+ 	   key = String.fromCharCode( key );
+	   
+	   console.info("------>" + key);
+ 	   //var regex = /^[0-9.,]+$/;
+ 	   var regex = /^[0-9.]+$/;
+ 	   if( !regex.test(key) || key === '-' || key === '+') {
+ 	      theEvent.returnValue = false;
+ 	      if(theEvent.preventDefault) theEvent.preventDefault();
+ 	   }
+ }
+
+</script>
 </body>
 </html>
