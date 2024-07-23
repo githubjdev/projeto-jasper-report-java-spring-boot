@@ -11,7 +11,7 @@
 
   <h1 style="text-align: center;" class="h1">Relatório REST API</h1>
   
-  <form action="/imprimirReportMvc" method="POST" style="width: 100%; padding-top: 10%;padding-left: 40%">
+  <form  style="width: 100%; padding-top: 10%;padding-left: 40%">
     <label for="nome"  class="form-label">Nome do relatório</label><br>
     <select id="nome" name="nome" style="width: 300px" class="form-select">
      <option value="relatorio-usuario-jrbcds">Relatório de usuário</option>
@@ -55,7 +55,7 @@
 	  if (salario_ini !== null && salario_fim !== null){
 	  
 		  var request = new XMLHttpRequest();
-		  request.open("GET","/imprimirReportBase64/nome/"+nome+"/salario_ini/"+salario_ini+"/salario_fim/" + salario_fim, false);
+		  request.open("GET","/jasperreport/imprimirReportBase64/nome/"+nome+"/salario_ini/"+salario_ini+"/salario_fim/" + salario_fim, false);
 		  request.send();
 		  
 		  var pdf = request.responseText;

@@ -112,20 +112,20 @@ public class ImpressaoReportController {
 		return listDados;
 	}
 	
-	@RequestMapping(value = "/imprime-report-mvc", method =  RequestMethod.GET)
+	@RequestMapping(value = "**/imprime-report-mvc", method =  RequestMethod.GET)
 	public String imprimeReportMvc(){
 		
 		return "imprime-report-mvc.html";
 	}
 	
 	
-	@RequestMapping(value = "/imprime-report-rest-api", method =  RequestMethod.GET)
+	@RequestMapping(value = "**/imprime-report-rest-api", method =  RequestMethod.GET)
 	public String imprimeReportRetApi(){
 		
 		return "imprime-report-rest-api.html";
 	}
 	
-	@RequestMapping(value = "/imprimirReportMvc", method = RequestMethod.POST)
+	@RequestMapping(value = "**/imprimirReportMvc", method = RequestMethod.POST)
 	public String imprimirReportMvc(@RequestParam("nome") String nome,
 									@RequestParam("salario_ini") Double salario_ini,
 									@RequestParam("salario_fim") Double salario_fim,
