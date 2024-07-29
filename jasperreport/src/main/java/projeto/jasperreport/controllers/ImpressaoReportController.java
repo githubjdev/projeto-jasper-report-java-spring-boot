@@ -1,6 +1,10 @@
 package projeto.jasperreport.controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import projeto.jasperreport.ReportUtil;
+import projeto.model.ReportJasper;
+import projeto.repository.RepositoryReportJasper;
 import projeto.repository.UsuarioRepository;
 import projeto.service.UsuarioService;
 
@@ -36,6 +42,9 @@ public class ImpressaoReportController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private RepositoryReportJasper repositoryReportJasper; 
 	
 
 	/* Para download em aquivo pdf */
@@ -141,6 +150,40 @@ public class ImpressaoReportController {
 		
 		
 	}
+	
+	@RequestMapping(value = "**/gravarjasperbanco", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> gravaJasperBanco(HttpServletRequest request) throws IOException{
+		
+		File rais = new File(request.getServletContext().getRealPath("/relatorios"));
+		
+		File[] files = rais.listFiles();
+		
+		for (File file : files) {
+			
+			String nome = file.getName();
+			
+			if (nome.contains("jasper")) {
+				
+				nome = nome.replace(".jasper", "");
+				ReportJasper jasper = repositoryReportJasper.buscaByName(nome);
+				
+				if (jasper == null) {
+					  byte[] bytearray = Files.readAllBytes(Path.of(file.getPath()));
+					  
+					  ReportJasper gravar = new ReportJasper();
+					  gravar.setNome(nome);
+					  gravar.setJasper(bytearray);
+					  repositoryReportJasper.saveAndFlush(gravar);
+				}
+				
+			}
+		}
+		
+		return new ResponseEntity<String>("Gravado", HttpStatus.OK);
+		
+	}
+
 	
 
 }

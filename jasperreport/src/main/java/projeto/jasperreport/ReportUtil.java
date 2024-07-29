@@ -1,6 +1,8 @@
 package projeto.jasperreport;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import projeto.model.ReportJasper;
+import projeto.repository.RepositoryReportJasper;
 
 @Component
 public class ReportUtil {
@@ -24,6 +28,9 @@ public class ReportUtil {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private RepositoryReportJasper repositoryReportJasper;
 	
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public String gerarRelatorioStringPath(HashMap parametroRelatorio, ServletContext servletContext, String nomeReport) throws Exception {
@@ -81,8 +88,11 @@ public class ReportUtil {
 		String caminhoPastaImagensReport = servletContext.getRealPath(FOLDER_RELATORIOS);
 		parametroRelatorio.put(PARAMETRO_PASTA_REPORT, caminhoPastaImagensReport + SEPARETOR);
 		
+		ReportJasper jasper = repositoryReportJasper.buscaByName(nomeReport);
+		InputStream inputStream = new ByteArrayInputStream(jasper.getJasper());
+		
 		JasperPrint impressoraJasper = JasperFillManager
-				.fillReport(caminhoPastaImagensReport + SEPARETOR + nomeReport + ".jasper",
+				.fillReport(inputStream,
 				parametroRelatorio, new JRBeanCollectionDataSource(listaDados));
 		
 		return JasperExportManager.exportReportToPdf(impressoraJasper);
